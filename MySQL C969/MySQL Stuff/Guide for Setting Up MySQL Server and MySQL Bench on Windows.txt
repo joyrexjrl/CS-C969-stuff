@@ -1,0 +1,108 @@
+ Step-by-Step Guide for Setting Up MySQL Server on Windows
+
+ Step 1: Download MySQL Installer
+1. Visit the [official MySQL downloads page](https://dev.mysql.com/downloads/installer/).
+2. Download the MySQL Installer for Windows (usually the smaller web installer is sufficient).
+
+---
+
+ Step 2: Run the MySQL Installer
+1. Double-click the downloaded installer file.
+2. If prompted by User Account Control (UAC), click Yes to allow the installer to make changes.
+
+---
+
+ Step 3: Choose Setup Type
+1. Select a setup type. You can choose from:
+   - Developer Default: Installs the server, MySQL Workbench, and other development tools.
+   - Server Only: Installs only the MySQL server.
+   - Custom: Allows you to select individual components.
+2. Click Next after making your selection.
+
+---
+
+ Step 4: Resolve Dependencies (if any)
+1. If the installer detects missing software (e.g., Visual C++ Redistributable), click Execute to download and install the necessary components.
+
+---
+
+ Step 5: Install MySQL Server
+1. The installer will list the components to be installed. Click Execute to start the installation.
+2. Once the installation is complete, click Next.
+
+---
+
+ Step 6: Configure MySQL Server
+1. Type and Networking:  
+   - Choose Standalone MySQL Server.
+   - For networking, keep the default port (3306). Ensure that the firewall allows access through this port.
+   - Click Next.
+   
+2. Authentication:  
+   - Select Use Strong Password Encryption.
+   - Create a root password. You’ll use this password to connect to the server.
+   - Optionally, add additional MySQL users.
+
+3. Windows Service:  
+   - Select Configure MySQL Server as a Windows Service.
+   - Leave the default service name (e.g., MySQL80).
+   - Enable the option to Start the MySQL Server at System Startup.
+
+4. Click Next to finalize the configuration.
+
+---
+
+ Step 7: Apply Configuration
+1. Click Execute to apply the server configuration.
+2. Once completed, click Finish.
+
+---
+
+ Step 8: Test MySQL Server
+1. Open Command Prompt.
+2. Type the following command to connect to the MySQL server:
+   cmd
+   mysql -u root -p
+   
+3. Enter the root password when prompted.
+4. If successful, you'll be in the MySQL command-line client.
+
+---
+
+---
+
+ Step-by-Step Guide for Setting Up MySQL Workbench
+
+ Step 1: Download and Install MySQL Workbench
+1. Visit the [MySQL Workbench download page](https://dev.mysql.com/downloads/workbench/).
+2. Download the latest version of MySQL Workbench for Windows.
+3. Run the installer and follow the prompts to install Workbench.
+
+---
+
+ Step 2: Launch MySQL Workbench
+1. After installation, open MySQL Workbench.
+
+---
+
+ Step 3: Create a New Connection
+1. In the Workbench dashboard, click + next to MySQL Connections.
+2. Enter connection details:
+   - Connection Name: Give your connection a descriptive name (e.g., "Local MySQL Server").
+   - Hostname: Enter localhost if the MySQL server is running locally.
+   - Port: Enter 3306 (default MySQL port).
+   - Username: Enter root (or another MySQL user).
+   - Password: Click Store in Vault and enter the root password you created earlier.
+
+3. Click Test Connection.  
+   - If successful, you'll see a confirmation message.
+   - If there are errors, check that the MySQL server is running and that the hostname, port, and credentials are correct.
+
+4. Click OK to save the connection.
+
+---
+
+ Step 4: Connect to the Server
+1. Click the new connection tile to open a session in MySQL Workbench.
+2. You can now execute SQL queries, manage databases, and perform administrative tasks.
+

@@ -1,0 +1,82 @@
+To configure MySQL Workbench to connect with the installed MySQL Server, follow these detailed steps:
+
+---
+
+ Step 1: Launch MySQL Workbench
+
+- Open MySQL Workbench by clicking on the application icon.
+
+---
+
+ Step 2: Add a New Connection
+
+1. Click the + button next to MySQL Connections on the main Workbench dashboard.
+2. The "Setup New Connection" dialog box will appear.
+
+---
+
+ Step 3: Configure the Connection Settings
+
+In the dialog box, fill in the following fields:
+
+1. Connection Name:  
+   - Provide a name for the connection (e.g., "Local MySQL Server" or "MySQL Dev Server").
+
+2. Connection Method:  
+   - Select Standard (TCP/IP), which is the default.
+
+3. Hostname:  
+   - If MySQL Server is running on the same machine, enter localhost.
+   - If the server is remote, enter the server's IP address or hostname.
+
+4. Port:  
+   - Enter 3306, the default MySQL port (or another port if you configured a different one).
+
+5. Username:  
+   - Enter root (or another MySQL user you created).
+
+6. Password:  
+   - Click Store in Vault (or Set button depending on the version).
+   - Enter the password you created during the MySQL server installation and click OK.
+
+---
+
+ Step 4: Test the Connection
+
+1. Click the Test Connection button.
+2. If the connection is successful, you'll see a confirmation message:  
+   - "Successfully made the MySQL connection."
+3. If the test fails:
+   - Check that the MySQL Server service is running. 
+     - You can verify this by searching for Services in the Windows start menu and confirming that the MySQL service (e.g., MySQL80) is running.
+   - Ensure the port, username, and password are correct.
+   - Ensure your firewall allows MySQL traffic on port 3306.
+
+---
+
+ Step 5: Save and Connect
+
+1. Click OK to save the connection.
+2. On the main dashboard, click the new connection tile to open a session with the MySQL Server.
+
+---
+
+ Step 6: Run a Sample Query (Optional)
+
+1. In the SQL editor, type a simple query such as:
+   sql
+   SELECT VERSION();
+   
+2. Click the Execute button (lightning icon) to run the query.
+3. The results pane will display the MySQL version information.
+
+---
+
+ Additional Configuration (If Needed)
+
+- Modify Connection Timeout:  
+   - Navigate to Edit > Preferences > SQL Editor.
+   - Increase the DBMS connection read timeout value if the connection times out frequently.
+
+- Set a Default Schema:  
+   - After connecting, you can right-click a database in the Navigator pane and select Set as Default Schema.
