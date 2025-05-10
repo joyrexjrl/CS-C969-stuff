@@ -52,6 +52,8 @@ namespace C969
             this.updateButton = new System.Windows.Forms.Button();
             this.clearButton = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.updateDatePicker = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.updateAppointmentBeingChanged)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.updateAppointmentList)).BeginInit();
             this.SuspendLayout();
@@ -74,51 +76,51 @@ namespace C969
             // 
             // updateTitle
             // 
-            this.updateTitle.Location = new System.Drawing.Point(63, 503);
+            this.updateTitle.Location = new System.Drawing.Point(45, 503);
             this.updateTitle.Name = "updateTitle";
-            this.updateTitle.Size = new System.Drawing.Size(197, 20);
+            this.updateTitle.Size = new System.Drawing.Size(200, 20);
             this.updateTitle.TabIndex = 1;
             // 
             // updateLocation
             // 
-            this.updateLocation.Location = new System.Drawing.Point(331, 503);
+            this.updateLocation.Location = new System.Drawing.Point(318, 503);
             this.updateLocation.Name = "updateLocation";
-            this.updateLocation.Size = new System.Drawing.Size(197, 20);
+            this.updateLocation.Size = new System.Drawing.Size(120, 20);
             this.updateLocation.TabIndex = 2;
             // 
             // updateType
             // 
-            this.updateType.Location = new System.Drawing.Point(579, 503);
+            this.updateType.Location = new System.Drawing.Point(481, 503);
             this.updateType.Name = "updateType";
-            this.updateType.Size = new System.Drawing.Size(197, 20);
+            this.updateType.Size = new System.Drawing.Size(120, 20);
             this.updateType.TabIndex = 3;
             // 
             // updateUrl
             // 
-            this.updateUrl.Location = new System.Drawing.Point(63, 538);
+            this.updateUrl.Location = new System.Drawing.Point(656, 503);
             this.updateUrl.Name = "updateUrl";
-            this.updateUrl.Size = new System.Drawing.Size(197, 20);
+            this.updateUrl.Size = new System.Drawing.Size(120, 20);
             this.updateUrl.TabIndex = 4;
             // 
             // updateContact
             // 
-            this.updateContact.Location = new System.Drawing.Point(331, 538);
+            this.updateContact.Location = new System.Drawing.Point(62, 538);
             this.updateContact.Name = "updateContact";
-            this.updateContact.Size = new System.Drawing.Size(162, 20);
+            this.updateContact.Size = new System.Drawing.Size(150, 20);
             this.updateContact.TabIndex = 5;
             // 
             // updateStart
             // 
-            this.updateStart.Location = new System.Drawing.Point(538, 538);
+            this.updateStart.Location = new System.Drawing.Point(259, 538);
             this.updateStart.Name = "updateStart";
-            this.updateStart.Size = new System.Drawing.Size(100, 20);
+            this.updateStart.Size = new System.Drawing.Size(110, 20);
             this.updateStart.TabIndex = 6;
             // 
             // updateEnd
             // 
-            this.updateEnd.Location = new System.Drawing.Point(676, 538);
+            this.updateEnd.Location = new System.Drawing.Point(422, 538);
             this.updateEnd.Name = "updateEnd";
-            this.updateEnd.Size = new System.Drawing.Size(100, 20);
+            this.updateEnd.Size = new System.Drawing.Size(110, 20);
             this.updateEnd.TabIndex = 7;
             // 
             // updateDescription
@@ -132,7 +134,7 @@ namespace C969
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(516, 561);
+            this.label10.Location = new System.Drawing.Point(264, 561);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(251, 13);
             this.label10.TabIndex = 31;
@@ -141,7 +143,7 @@ namespace C969
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(277, 541);
+            this.label9.Location = new System.Drawing.Point(12, 541);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(44, 13);
             this.label9.TabIndex = 30;
@@ -159,7 +161,7 @@ namespace C969
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(644, 541);
+            this.label7.Location = new System.Drawing.Point(390, 541);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(26, 13);
             this.label7.TabIndex = 28;
@@ -168,7 +170,7 @@ namespace C969
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(499, 541);
+            this.label6.Location = new System.Drawing.Point(224, 541);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(29, 13);
             this.label6.TabIndex = 27;
@@ -177,7 +179,7 @@ namespace C969
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 541);
+            this.label5.Location = new System.Drawing.Point(621, 506);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 13);
             this.label5.TabIndex = 26;
@@ -186,7 +188,7 @@ namespace C969
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(542, 506);
+            this.label4.Location = new System.Drawing.Point(444, 506);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(31, 13);
             this.label4.TabIndex = 25;
@@ -195,7 +197,7 @@ namespace C969
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(277, 506);
+            this.label3.Location = new System.Drawing.Point(264, 506);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(48, 13);
             this.label3.TabIndex = 24;
@@ -249,11 +251,31 @@ namespace C969
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(538, 541);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(30, 13);
+            this.label11.TabIndex = 32;
+            this.label11.Text = "Date";
+            // 
+            // updateDatePicker
+            // 
+            this.updateDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.updateDatePicker.Location = new System.Drawing.Point(576, 538);
+            this.updateDatePicker.Name = "updateDatePicker";
+            this.updateDatePicker.ShowUpDown = true;
+            this.updateDatePicker.Size = new System.Drawing.Size(200, 20);
+            this.updateDatePicker.TabIndex = 33;
+            // 
             // UpdateAppointment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(788, 727);
+            this.Controls.Add(this.updateDatePicker);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.clearButton);
             this.Controls.Add(this.updateButton);
@@ -311,5 +333,7 @@ namespace C969
         private System.Windows.Forms.Button updateButton;
         private System.Windows.Forms.Button clearButton;
         private System.Windows.Forms.Button backButton;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.DateTimePicker updateDatePicker;
     }
 }

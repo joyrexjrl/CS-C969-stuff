@@ -52,6 +52,8 @@ namespace C969
             this.label9 = new System.Windows.Forms.Label();
             this.appointmentContactTextBox = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.appointmentDatePicker = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentCustomerDatagrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentInfoDataGrid)).BeginInit();
             this.SuspendLayout();
@@ -93,7 +95,7 @@ namespace C969
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(277, 506);
+            this.label3.Location = new System.Drawing.Point(264, 506);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(48, 13);
             this.label3.TabIndex = 4;
@@ -102,7 +104,7 @@ namespace C969
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(542, 506);
+            this.label4.Location = new System.Drawing.Point(444, 506);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(31, 13);
             this.label4.TabIndex = 5;
@@ -111,7 +113,7 @@ namespace C969
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 541);
+            this.label5.Location = new System.Drawing.Point(621, 506);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(29, 13);
             this.label5.TabIndex = 6;
@@ -120,7 +122,7 @@ namespace C969
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(499, 541);
+            this.label6.Location = new System.Drawing.Point(224, 541);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(29, 13);
             this.label6.TabIndex = 7;
@@ -129,7 +131,7 @@ namespace C969
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(644, 541);
+            this.label7.Location = new System.Drawing.Point(390, 541);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(26, 13);
             this.label7.TabIndex = 8;
@@ -146,44 +148,44 @@ namespace C969
             // 
             // appointmentTitleTextBox
             // 
-            this.appointmentTitleTextBox.Location = new System.Drawing.Point(65, 503);
+            this.appointmentTitleTextBox.Location = new System.Drawing.Point(45, 503);
             this.appointmentTitleTextBox.Name = "appointmentTitleTextBox";
-            this.appointmentTitleTextBox.Size = new System.Drawing.Size(197, 20);
+            this.appointmentTitleTextBox.Size = new System.Drawing.Size(200, 20);
             this.appointmentTitleTextBox.TabIndex = 1;
             // 
             // appointmentLocationTextBox
             // 
-            this.appointmentLocationTextBox.Location = new System.Drawing.Point(331, 503);
+            this.appointmentLocationTextBox.Location = new System.Drawing.Point(318, 503);
             this.appointmentLocationTextBox.Name = "appointmentLocationTextBox";
-            this.appointmentLocationTextBox.Size = new System.Drawing.Size(197, 20);
+            this.appointmentLocationTextBox.Size = new System.Drawing.Size(120, 20);
             this.appointmentLocationTextBox.TabIndex = 2;
             // 
             // appointmentTypeTextBox
             // 
-            this.appointmentTypeTextBox.Location = new System.Drawing.Point(579, 503);
+            this.appointmentTypeTextBox.Location = new System.Drawing.Point(481, 503);
             this.appointmentTypeTextBox.Name = "appointmentTypeTextBox";
-            this.appointmentTypeTextBox.Size = new System.Drawing.Size(197, 20);
+            this.appointmentTypeTextBox.Size = new System.Drawing.Size(120, 20);
             this.appointmentTypeTextBox.TabIndex = 3;
             // 
             // appointmentURLTextBox
             // 
-            this.appointmentURLTextBox.Location = new System.Drawing.Point(65, 538);
+            this.appointmentURLTextBox.Location = new System.Drawing.Point(656, 503);
             this.appointmentURLTextBox.Name = "appointmentURLTextBox";
-            this.appointmentURLTextBox.Size = new System.Drawing.Size(197, 20);
+            this.appointmentURLTextBox.Size = new System.Drawing.Size(120, 20);
             this.appointmentURLTextBox.TabIndex = 4;
             // 
             // appointmentStartTextBox
             // 
-            this.appointmentStartTextBox.Location = new System.Drawing.Point(538, 538);
+            this.appointmentStartTextBox.Location = new System.Drawing.Point(259, 538);
             this.appointmentStartTextBox.Name = "appointmentStartTextBox";
-            this.appointmentStartTextBox.Size = new System.Drawing.Size(100, 20);
+            this.appointmentStartTextBox.Size = new System.Drawing.Size(110, 20);
             this.appointmentStartTextBox.TabIndex = 6;
             // 
             // appointmentEndTextBox
             // 
-            this.appointmentEndTextBox.Location = new System.Drawing.Point(676, 538);
+            this.appointmentEndTextBox.Location = new System.Drawing.Point(422, 538);
             this.appointmentEndTextBox.Name = "appointmentEndTextBox";
-            this.appointmentEndTextBox.Size = new System.Drawing.Size(100, 20);
+            this.appointmentEndTextBox.Size = new System.Drawing.Size(110, 20);
             this.appointmentEndTextBox.TabIndex = 7;
             // 
             // appointmentDescriptionTextBox
@@ -227,7 +229,7 @@ namespace C969
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(277, 541);
+            this.label9.Location = new System.Drawing.Point(12, 541);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(44, 13);
             this.label9.TabIndex = 20;
@@ -235,25 +237,45 @@ namespace C969
             // 
             // appointmentContactTextBox
             // 
-            this.appointmentContactTextBox.Location = new System.Drawing.Point(331, 538);
+            this.appointmentContactTextBox.Location = new System.Drawing.Point(62, 538);
             this.appointmentContactTextBox.Name = "appointmentContactTextBox";
-            this.appointmentContactTextBox.Size = new System.Drawing.Size(162, 20);
+            this.appointmentContactTextBox.Size = new System.Drawing.Size(150, 20);
             this.appointmentContactTextBox.TabIndex = 5;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(516, 561);
+            this.label10.Location = new System.Drawing.Point(264, 561);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(251, 13);
             this.label10.TabIndex = 21;
             this.label10.Text = "Time should be entered in 24 hour format, Ex: 14:30";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(538, 541);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(30, 13);
+            this.label11.TabIndex = 22;
+            this.label11.Text = "Date";
+            // 
+            // appointmentDatePicker
+            // 
+            this.appointmentDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.appointmentDatePicker.Location = new System.Drawing.Point(576, 538);
+            this.appointmentDatePicker.Name = "appointmentDatePicker";
+            this.appointmentDatePicker.ShowUpDown = true;
+            this.appointmentDatePicker.Size = new System.Drawing.Size(200, 20);
+            this.appointmentDatePicker.TabIndex = 23;
             // 
             // AddAppointment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(788, 727);
+            this.Controls.Add(this.appointmentDatePicker);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.appointmentContactTextBox);
             this.Controls.Add(this.label9);
@@ -311,5 +333,7 @@ namespace C969
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox appointmentContactTextBox;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.DateTimePicker appointmentDatePicker;
     }
 }

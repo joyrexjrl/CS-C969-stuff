@@ -46,8 +46,9 @@ namespace C969
                 updateContact.Text = row.Cells["contact"].Value?.ToString();
                 updateUrl.Text = row.Cells["url"].Value?.ToString();
 
-                updateStart.Text = Convert.ToDateTime(row.Cells["start"].Value).ToString("yyyy-MM-dd HH:mm");
-                updateEnd.Text = Convert.ToDateTime(row.Cells["end"].Value).ToString("yyyy-MM-dd HH:mm");
+                updateStart.Text = Convert.ToDateTime(row.Cells["start"].Value).ToString("HH:mm");
+                updateEnd.Text = Convert.ToDateTime(row.Cells["end"].Value).ToString("HH:mm");
+                updateDatePicker.Value = Convert.ToDateTime(row.Cells["start"].Value).Date;
 
                 updateDescription.Text = row.Cells["description"].Value?.ToString();
             }
@@ -71,12 +72,15 @@ namespace C969
             string url = updateUrl.Text.Trim();
             string description = updateDescription.Text.Trim();
 
-            if (!DateTime.TryParse(updateStart.Text.Trim(), out DateTime startTime) ||
-                !DateTime.TryParse(updateEnd.Text.Trim(), out DateTime endTime))
+            if (!TimeSpan.TryParse(updateStart.Text.Trim(), out TimeSpan startTimeOnly) ||
+                !TimeSpan.TryParse(updateEnd.Text.Trim(), out TimeSpan endTimeOnly))
             {
-                MessageBox.Show("Invalid start or end time.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid start or end time format.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            DateTime startTime = updateDatePicker.Value.Date + startTimeOnly;
+            DateTime endTime = updateDatePicker.Value.Date + endTimeOnly;
 
             if (startTime >= endTime)
             {

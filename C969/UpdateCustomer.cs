@@ -4,6 +4,7 @@ using System;
 using System.Data;
 using System.Data.SQLite;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace C969
@@ -24,6 +25,7 @@ namespace C969
             updateCustomerDataGrid.ClearSelection();
             SetActiveStatus();
             PopulateCustomerFields();
+            updateCustomerPhoneNumber.KeyPress += CustomerPhoneNumber_KeyPress;
         }
 
         void customerUpdateBackButton_Click(object sender, EventArgs e) => Close();
@@ -35,6 +37,21 @@ namespace C969
             updateCustomerActiveStatus.SelectedIndex = 0;
         }
 
+        void CustomerPhoneNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsControl(e.KeyChar)) return;
+            if (char.IsDigit(e.KeyChar)) return;
+            if (e.KeyChar == '(' || e.KeyChar == ')' || e.KeyChar == '-') return;
+            e.Handled = true;
+        }
+
+        string FormatPhoneNumber(string input)
+        {
+            var digits = new string(input.Where(char.IsDigit).ToArray());
+            if (digits.Length != 10) throw new Exception("Phone number must be exactly 10 digits.");
+            return $"({digits.Substring(0, 3)}){digits.Substring(3, 3)}-{digits.Substring(6, 4)}";
+        }
+
         void customerUpdateButton_Click(object sender, EventArgs e)
         {
             if (updateCustomerName.Text == "" || updateCustomerPhoneNumber.Text == "" ||
@@ -43,12 +60,21 @@ namespace C969
             {
                 MessageBox.Show("All fields must be filled out.");
                 return;
-            }
+            }            
 
             string name = updateCustomerName.Text;
             string address = updateCustomerAddressOne.Text;
             string address2 = updateCustomerAddressTwo.Text;
-            string phone = updateCustomerPhoneNumber.Text;
+            string phone;
+            try
+            {
+                phone = FormatPhoneNumber(updateCustomerPhoneNumber.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
             string postal = updateCustomerPostCode.Text;
             string city = updateCustomerCity.Text;
             string country = updateCustomerCountry.Text;

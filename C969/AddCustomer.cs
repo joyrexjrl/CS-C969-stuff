@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Data.SQLite;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace C969
@@ -35,9 +36,18 @@ namespace C969
             _user = DBConnection.UserName;
             SetActiveStatus();
             Load += AddCustomer_Load;
+            customerPhoneNumber.KeyPress += CustomerPhoneNumber_KeyPress;
         }
 
         void AddCustomer_Load(object sender, EventArgs e) => _helperFunctions.LoadDataGridData(_customerQuery, addCustomerDataGrid);
+
+        void CustomerPhoneNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsControl(e.KeyChar)) return;
+            if (char.IsDigit(e.KeyChar)) return;
+            if (e.KeyChar == '(' || e.KeyChar == ')' || e.KeyChar == '-') return;
+            e.Handled = true;
+        }
 
         void CustomerAddButton_Click(object sender, EventArgs e)
         {
@@ -55,6 +65,7 @@ namespace C969
             string city = customerAddressCity.Text;
             string country = customerAddressCountry.Text;
             int active = customerActiveStatus.SelectedIndex;
+            phone = FormatPhoneNumber(phone);
 
             if (DBConnection.IsOffline())
             {
@@ -142,6 +153,13 @@ namespace C969
                     MessageBox.Show("Error inserting into online database:\n" + ex.Message);
                 }
             }            
+        }
+
+        string FormatPhoneNumber(string input)
+        {
+            var digits = new string(input.Where(char.IsDigit).ToArray());
+            if (digits.Length != 10) throw new Exception("Phone number must be exactly 10 digits.");
+            return $"({digits.Substring(0, 3)}){digits.Substring(3, 3)}-{digits.Substring(6, 4)}";
         }
 
         void CustomerClearButton_Click(object sender, EventArgs e) => ClearCustomerFields();

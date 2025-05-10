@@ -103,17 +103,21 @@ namespace C969
             string url = appointmentURLTextBox.Text.Trim();
             string description = appointmentDescriptionTextBox.Text.Trim();
 
-            if (!TryParseNormalizedTime(appointmentStartTextBox.Text, out DateTime start) ||
-                !TryParseNormalizedTime(appointmentEndTextBox.Text, out DateTime end))
+            if (!TryParseNormalizedTime(appointmentStartTextBox.Text, out DateTime startTime) ||
+                !TryParseNormalizedTime(appointmentEndTextBox.Text, out DateTime endTime))
             {
-                MessageBox.Show("Invalid date/time format for start or end.", "Date Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid time format for start or end.", "Time Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (start < _openTime || start > _closedTime || end < _openTime || end > _closedTime)
+            DateTime selectedDate = appointmentDatePicker.Value.Date;
+            DateTime start = selectedDate.AddHours(startTime.Hour).AddMinutes(startTime.Minute);
+            DateTime end = selectedDate.AddHours(endTime.Hour).AddMinutes(endTime.Minute);
+
+            if (start.TimeOfDay < _openTime.TimeOfDay || start.TimeOfDay > _closedTime.TimeOfDay ||
+                end.TimeOfDay < _openTime.TimeOfDay || end.TimeOfDay > _closedTime.TimeOfDay)
             {
-                MessageBox.Show($"Please enter times within the operating hours: {_openTime:HH:mm} - {_closedTime:HH:mm}.",
-                                "Time Out of Range", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Please enter times within operating hours: {_openTime:HH:mm} - {_closedTime:HH:mm}.", "Time Out of Range", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 appointmentStartTextBox.Clear();
                 appointmentEndTextBox.Clear();
                 return;
@@ -139,21 +143,19 @@ namespace C969
                 INSERT INTO appointment 
                 (customerId, userId, title, description, location, contact, type, url, start, end, createDate, createdBy, lastUpdate, lastUpdateBy)
                 VALUES (
-                    {_customerId}, {userId}, '{Escape(title)}', '{Escape(description)}', '{Escape(location)}', '{Escape(contact)}', 
-                    '{Escape(type)}', '{Escape(url)}', '{start:yyyy-MM-dd HH:mm:ss}', '{end:yyyy-MM-dd HH:mm:ss}', '{now:yyyy-MM-dd HH:mm:ss}', 
-                    '{Escape(createdBy)}', '{now:yyyy-MM-dd HH:mm:ss}', '{Escape(createdBy)}')";
+                {_customerId}, {userId}, '{Escape(title)}', '{Escape(description)}', '{Escape(location)}', '{Escape(contact)}', 
+                '{Escape(type)}', '{Escape(url)}', '{start:yyyy-MM-dd HH:mm:ss}', '{end:yyyy-MM-dd HH:mm:ss}', '{now:yyyy-MM-dd HH:mm:ss}', 
+                '{Escape(createdBy)}', '{now:yyyy-MM-dd HH:mm:ss}', '{Escape(createdBy)}')";
 
             try
             {
                 if (DBConnection.IsOffline())
                 {
-                    using (var cmd = new SQLiteCommand(insertQuery, DBConnection.OfflineConn))
-                        cmd.ExecuteNonQuery();
+                    using (var cmd = new SQLiteCommand(insertQuery, DBConnection.OfflineConn)) cmd.ExecuteNonQuery();
                 }
                 else
                 {
-                    using (var cmd = new MySqlCommand(insertQuery, DBConnection.Conn))
-                        cmd.ExecuteNonQuery();
+                    using (var cmd = new MySqlCommand(insertQuery, DBConnection.Conn)) cmd.ExecuteNonQuery();
                 }
 
                 AppointmentAdded?.Invoke(this, EventArgs.Empty);
@@ -177,7 +179,10 @@ namespace C969
                     DateTime existingStart = Convert.ToDateTime(dataRow["start"]);
                     DateTime existingEnd = Convert.ToDateTime(dataRow["end"]);
 
-                    if (newStart < existingEnd && newEnd > existingStart) return true;
+                    if (existingStart.Date == newStart.Date)
+                    {
+                        if (newStart < existingEnd && newEnd > existingStart) return true;
+                    }
                 }
             }
             return false;
