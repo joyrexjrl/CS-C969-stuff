@@ -65,6 +65,7 @@ namespace C969
             string city = customerAddressCity.Text;
             string country = customerAddressCountry.Text;
             int active = customerActiveStatus.SelectedIndex;
+
             try
             {
                 phone = FormatPhoneNumber(phone);

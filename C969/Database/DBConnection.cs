@@ -26,6 +26,7 @@ namespace C969.Database
         public static string UserName { get; set; }
         public static bool IsConnected { get; set; }
         public static bool IsOffline() => CurrentMode == ConnectionMode.Offline;
+        public static TimeZoneInfo timeZone = TimeZoneInfo.Local;
 
         static bool _offlineConnDisposed = false;
         static SQLiteConnection _offlineConn;
