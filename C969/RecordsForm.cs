@@ -11,7 +11,6 @@ namespace C969
     public partial class RecordsForm : Form
     {
         HelperFunctions _helperFunctions;
-        DateTime _localNow;
 
         int _selectedCustomerId;
         string _customerQuery = @"
@@ -47,8 +46,6 @@ namespace C969
             customerDataGrid.SelectionChanged += CustomerDataGrid_SelectionChanged;
             appointmentDataGrid.SelectionChanged += AppointmentDataGrid_SelectionChanged;
 
-            _localNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, DBConnection.timeZone);
-
             Load += RecordsForm_Load;
             FormClosed += EndConnectionOnClose;
         }
@@ -65,7 +62,7 @@ namespace C969
         {
             try
             {
-                var now = _localNow;
+                var now = DBConnection.GetNowTime();
                 var fifteenMinutesLater = now.AddMinutes(15);
 
                 string query = @"
