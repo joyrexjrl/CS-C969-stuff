@@ -10,13 +10,13 @@ namespace C969
     {
         string _userNameTest = "test";
         string _passwordTest = "test";
-        string _filePath = "../../Resources/";
         RegionInfo _usersRegion = RegionInfo.CurrentRegion;
         bool _isWrongLoginInfo = false;
 
         public LoginForm()
         {
             InitializeComponent();
+            DBConnection.EnsureLogFileExists();
 
             englishErrorLabel.Text = "";
             otherLangErrorLabel.Text = "";
@@ -137,10 +137,11 @@ namespace C969
         {
             try
             {
-                using (StreamWriter outputFile = new StreamWriter(Path.Combine(_filePath, "userLog.txt"), true))
+                using (StreamWriter outputFile = new StreamWriter(DBConnection.LoggerFile, true))
                 {
+                    DateTime time = DBConnection.GetNowTime();
                     string mode = isOffline ? "[OFFLINE]" : "[ONLINE]";
-                    outputFile.WriteLine($"{mode} User {_userNameTest} logged in at {DateTime.Now}");
+                    outputFile.WriteLine($"{mode} User {_userNameTest} logged in at {time}");
                 }
             }
             catch (Exception err)
@@ -153,10 +154,11 @@ namespace C969
         {
             try
             {
-                using (StreamWriter outputFile = new StreamWriter(Path.Combine(_filePath, "userLog.txt"), true))
+                using (StreamWriter outputFile = new StreamWriter(DBConnection.LoggerFile, true))
                 {
+                    DateTime time = DBConnection.GetNowTime();
                     string mode = isOffline ? "[OFFLINE]" : "[ONLINE]";
-                    outputFile.WriteLine($"{mode} Failed Login Attempt with {usernameTextBox.Text} at {DateTime.Now}");
+                    outputFile.WriteLine($"{mode} Failed Login Attempt with {usernameTextBox.Text} at {time}");
                 }
             }
             catch (Exception err)
