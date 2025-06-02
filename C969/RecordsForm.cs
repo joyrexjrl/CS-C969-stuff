@@ -28,6 +28,7 @@ namespace C969
                 lastUpdateBy 
             FROM customer";
         string _customerAppointmentQuery = "SELECT * FROM appointment WHERE customerId";
+        string _user;
 
         public RecordsForm()
         {
@@ -36,6 +37,7 @@ namespace C969
             _helperFunctions.DataGridLayout(customerDataGrid);
             _helperFunctions.DataGridLayout(appointmentDataGrid);
             _helperFunctions.ConfigureAppointmentColumns(appointmentDataGrid);
+            _user = DBConnection.UserName;
 
             updateCustomerButton.Enabled = false;
             deleteCustomerButton.Enabled = false;
@@ -223,6 +225,7 @@ namespace C969
         void DeleteDataGridInfo(DataGridView dataGridView)
         {
             string noSelectError = "", sqlTablePK = "", deleteMessage = "", sqlDeleteQuery = "", successMessage = "", reloadQuery = "", tableType = "";
+            string deleteType = (dataGridView == customerDataGrid) ? "Customer" : "Appointment";
 
             if (dataGridView == customerDataGrid)
             {
@@ -265,7 +268,8 @@ namespace C969
                         cmd.Parameters.AddWithValue($"@{sqlTablePK}", id);
                         if (cmd.ExecuteNonQuery() > 0)
                         {
-                            MessageBox.Show(successMessage, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show(successMessage, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);                            
+                            Logger.LogCustomerChange("Deleted", deleteType, _user, DBConnection.IsOffline());
                             _helperFunctions.LoadDataGridData(reloadQuery, dataGridView);
                         }
                         else MessageBox.Show("Deletion failed. It may not exist in the database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -279,6 +283,7 @@ namespace C969
                         if (cmd.ExecuteNonQuery() > 0)
                         {
                             MessageBox.Show(successMessage, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            Logger.LogCustomerChange("Deleted", deleteType, _user, DBConnection.IsOffline());
                             _helperFunctions.LoadDataGridData(reloadQuery, dataGridView);
                         }
                         else MessageBox.Show("Deletion failed. It may not exist in the database.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
