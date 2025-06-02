@@ -16,7 +16,7 @@ namespace C969
         public LoginForm()
         {
             InitializeComponent();
-            DBConnection.EnsureLogFileExists();
+            //Logger.EnsureLogFileExists();
 
             englishErrorLabel.Text = "";
             otherLangErrorLabel.Text = "";
@@ -133,38 +133,11 @@ namespace C969
             Hide();
         }
 
-        void LogLoginSuccess(bool isOffline)
-        {
-            try
-            {
-                using (StreamWriter outputFile = new StreamWriter(DBConnection.LoggerFile, true))
-                {
-                    DateTime time = DBConnection.GetNowTime();
-                    string mode = isOffline ? "[OFFLINE]" : "[ONLINE]";
-                    outputFile.WriteLine($"{mode} User {_userNameTest} logged in at {time}");
-                }
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show($"{err.Message}");
-            }
-        }
+        void LogLoginSuccess(bool isOffline) => Logger.LogLogin(_userNameTest, success: true, isOffline: isOffline);
 
         void LogFailedLogin(bool isOffline)
         {
-            try
-            {
-                using (StreamWriter outputFile = new StreamWriter(DBConnection.LoggerFile, true))
-                {
-                    DateTime time = DBConnection.GetNowTime();
-                    string mode = isOffline ? "[OFFLINE]" : "[ONLINE]";
-                    outputFile.WriteLine($"{mode} Failed Login Attempt with {usernameTextBox.Text} at {time}");
-                }
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show($"{err.Message}");
-            }
+            Logger.LogLogin(usernameTextBox.Text, success: false, isOffline: isOffline);
 
             if (_usersRegion.Name == "DE") otherLangErrorLabel.Text = "Benutzername oder Passwort stimmen nicht überein.";
             else if (_usersRegion.Name == "MX") otherLangErrorLabel.Text = "nombre de usuario o contraseña no coinciden";

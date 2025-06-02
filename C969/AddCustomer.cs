@@ -128,25 +128,25 @@ namespace C969
                     var conn = DBConnection.Conn;
 
                     string addCountry = $"INSERT INTO country (country, createDate, createdBy, lastUpdate, lastUpdateBy) " +
-                                        $"VALUES ('{country}', now(), '{_user}', now(), '{_user}')";
+                                        $"VALUES ('{country}', UTC_TIMESTAMP(), '{_user}', UTC_TIMESTAMP(), '{_user}')";
                     var countryCmd = new MySqlCommand(addCountry, conn);
                     countryCmd.ExecuteNonQuery();
                     long countryId = countryCmd.LastInsertedId;
 
                     string addCity = $"INSERT INTO city (city, countryId, createDate, createdBy, lastUpdate, lastUpdateBy) " +
-                                     $"VALUES ('{city}', {countryId}, now(), '{_user}', now(), '{_user}')";
+                                     $"VALUES ('{city}', {countryId}, UTC_TIMESTAMP(), '{_user}', UTC_TIMESTAMP(), '{_user}')";
                     var cityCmd = new MySqlCommand(addCity, conn);
                     cityCmd.ExecuteNonQuery();
                     long cityId = cityCmd.LastInsertedId;
 
                     string addAddress = $"INSERT INTO address (address, address2, cityId, postalCode, phone, createDate, createdBy, lastUpdate, lastUpdateBy) " +
-                                        $"VALUES ('{address}', '', {cityId}, '{postal}', '{phone}', now(), '{_user}', now(), '{_user}')";
+                                        $"VALUES ('{address}', '', {cityId}, '{postal}', '{phone}', UTC_TIMESTAMP(), '{_user}', UTC_TIMESTAMP(), '{_user}')";
                     var addrCmd = new MySqlCommand(addAddress, conn);
                     addrCmd.ExecuteNonQuery();
                     long addressId = addrCmd.LastInsertedId;
 
                     string addCustomer = $"INSERT INTO customer (customerName, addressId, active, createDate, createdBy, lastUpdate, lastUpdateBy) " +
-                                         $"VALUES ('{name}', {addressId}, {active}, now(), '{_user}', now(), '{_user}')";
+                                         $"VALUES ('{name}', {addressId}, {active}, UTC_TIMESTAMP(), '{_user}', UTC_TIMESTAMP(), '{_user}')";
                     var custCmd = new MySqlCommand(addCustomer, conn);
                     custCmd.ExecuteNonQuery();
 

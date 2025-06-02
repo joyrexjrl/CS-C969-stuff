@@ -131,36 +131,38 @@ namespace C969
                 else
                 {
                     var connOnline = DBConnection.Conn; // Using MySQL connection
+                    long addressId = 0, cityId = 0, countryId = 0;
+
                     using (var commandOnline = new MySqlCommand(query, connOnline))
                     using (var readerOnline = commandOnline.ExecuteReader())
                     {
                         if (readerOnline.Read())
                         {
-                            long addressId = Convert.ToInt64(readerOnline["addressId"]);
-                            long cityId = Convert.ToInt64(readerOnline["cityId"]);
-                            long countryId = Convert.ToInt64(readerOnline["countryId"]);
-
-                            string updateCountry = $"UPDATE country SET country = '{country}', lastUpdate = now() WHERE countryId = {countryId}";
-                            using (var command = new MySqlCommand(updateCountry, connOnline))
-                                command.ExecuteNonQuery();
-
-                            string updateCity = $"UPDATE city SET city = '{city}', lastUpdate = now() WHERE cityId = {cityId}";
-                            using (var command = new MySqlCommand(updateCity, connOnline))
-                                command.ExecuteNonQuery();
-
-                            string updateAddress = $"UPDATE address SET address = '{address}', address2 = '{address2}', postalCode = '{postal}', phone = '{phone}', lastUpdate = now() WHERE addressId = {addressId}";
-                            using (var command = new MySqlCommand(updateAddress, connOnline))
-                                command.ExecuteNonQuery();
-
-                            string updateCustomer = $"UPDATE customer SET customerName = '{name}', active = {active}, lastUpdate = now() WHERE customerId = {customerId}";
-                            using (var command = new MySqlCommand(updateCustomer, connOnline))
-                                command.ExecuteNonQuery();
-
-                            MessageBox.Show("Customer updated in online database.");
-                            CustomerSaved?.Invoke(this, EventArgs.Empty);
-                            Close();
+                            addressId = Convert.ToInt64(readerOnline["addressId"]);
+                            cityId = Convert.ToInt64(readerOnline["cityId"]);
+                            countryId = Convert.ToInt64(readerOnline["countryId"]);
                         }
                     }
+
+                    string updateCountry = $"UPDATE country SET country = '{country}', lastUpdate = UTC_TIMESTAMP() WHERE countryId = {countryId}";
+                    using (var command = new MySqlCommand(updateCountry, connOnline))
+                        command.ExecuteNonQuery();
+
+                    string updateCity = $"UPDATE city SET city = '{city}', lastUpdate = UTC_TIMESTAMP() WHERE cityId = {cityId}";
+                    using (var command = new MySqlCommand(updateCity, connOnline))
+                        command.ExecuteNonQuery();
+
+                    string updateAddress = $"UPDATE address SET address = '{address}', address2 = '{address2}', postalCode = '{postal}', phone = '{phone}', lastUpdate = UTC_TIMESTAMP() WHERE addressId = {addressId}";
+                    using (var command = new MySqlCommand(updateAddress, connOnline))
+                        command.ExecuteNonQuery();
+
+                    string updateCustomer = $"UPDATE customer SET customerName = '{name}', active = {active}, lastUpdate = UTC_TIMESTAMP() WHERE customerId = {customerId}";
+                    using (var command = new MySqlCommand(updateCustomer, connOnline))
+                        command.ExecuteNonQuery();
+
+                    MessageBox.Show("Customer updated in online database.");
+                    CustomerSaved?.Invoke(this, EventArgs.Empty);
+                    Close();
                 }
             }
             catch (MySqlException ex)

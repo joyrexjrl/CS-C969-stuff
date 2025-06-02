@@ -25,30 +25,13 @@ namespace C969.Database
         public static int UserId { get; set; } = -1;
         public static string UserName { get; set; }
         public static bool IsConnected { get; set; }
-        public static bool IsOffline() => CurrentMode == ConnectionMode.Offline;
-
-        public static readonly string LoggerPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Resources"));
-        public static readonly string LoggerFile = Path.Combine(LoggerPath, "userLog.txt");
+        public static bool IsOffline() => CurrentMode == ConnectionMode.Offline;        
 
         static TimeZoneInfo _timeZone = TimeZoneInfo.Local;
         static bool _offlineConnDisposed = false;
         static SQLiteConnection _offlineConn;
 
         public static DateTime GetNowTime() => TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, _timeZone);
-
-        public static void EnsureLogFileExists()
-        {
-            try
-            {
-                MessageBox.Show(LoggerFile);
-                Directory.CreateDirectory(LoggerPath);
-                if (!File.Exists(LoggerFile)) using (File.Create(LoggerFile)) { }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Failed to initialize log file: {ex.Message}");
-            }
-        }
 
         public static bool LoginUser(string username, string password)
         {
