@@ -131,6 +131,7 @@
     </Compile>
     <Compile Include="Database\DBConnection.cs" />
     <Compile Include="HelperFunctions.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -16,7 +16,7 @@ namespace C969
         public LoginForm()
         {
             InitializeComponent();
-            //Logger.EnsureLogFileExists();
+            Logger.EnsureLogFileExists();
 
             englishErrorLabel.Text = "";
             otherLangErrorLabel.Text = "";

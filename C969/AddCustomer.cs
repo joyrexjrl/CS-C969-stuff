@@ -111,6 +111,7 @@ namespace C969
 
                     MessageBox.Show("Customer added to offline database.");
 
+                    Logger.LogCustomerChange("Added", name, _user, DBConnection.IsOffline());
                     addCustomerDataGrid.DataSource = null;
                     _helperFunctions.LoadDataGridData(_customerQuery, addCustomerDataGrid);
                     ClearCustomerFields();
@@ -152,6 +153,7 @@ namespace C969
 
                     MessageBox.Show("Customer added to online database.");
 
+                    Logger.LogCustomerChange("Added", name, _user, DBConnection.IsOffline());
                     addCustomerDataGrid.DataSource = null;
                     _helperFunctions.LoadDataGridData(_customerQuery, addCustomerDataGrid);
                     ClearCustomerFields();

@@ -164,7 +164,7 @@ namespace C969.Database
                         createDate DATETIME,
                         createdBy TEXT,
                         lastUpdate TIMESTAMP,
-                        lastUpdatedBy TEXT,
+                        lastUpdateBy TEXT,
                         FOREIGN KEY(countryId) REFERENCES country(countryId)
                     );",
 

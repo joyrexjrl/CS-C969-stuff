@@ -14,14 +14,17 @@ namespace C969
         public static readonly string LoggerPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\Resources"));
         public static readonly string LoggerFile = Path.Combine(LoggerPath, "userLog.txt");
 
-        static Logger()
+        static Logger() => EnsureLogFileExists();
+
+        public static void EnsureLogFileExists()
         {
             try
             {
                 Directory.CreateDirectory(LoggerPath);
-                if(!File.Exists(LoggerFile)) using (File.Create(LoggerFile)) { }
+                if (!File.Exists(LoggerFile))
+                    using (File.Create(LoggerFile)) { }
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show($"Failed to initialize log file: {ex.Message}");
             }
@@ -36,9 +39,9 @@ namespace C969
                     outputFile.WriteLine(message);
                 }
             }
-            catch (Exception err)
+            catch (Exception ex)
             {
-                MessageBox.Show($"Logging error: {err.Message}");
+                MessageBox.Show($"Logging error: {ex.Message}");
             }
         }
 
@@ -50,14 +53,18 @@ namespace C969
             Log($"{mode} User {username} {status} at {time}");
         }
 
-        public static void LogCustomerChange(string action, string customerName)
+        public static void LogCustomerChange(string action, string customerName, string username, bool isOffline)
         {
-            Log($"[CUSTOMER] {action} - {customerName}");
+            string mode = isOffline ? "[OFFLINE]" : "[ONLINE]";
+            string timestamp = DBConnection.GetNowTime().ToString("u"); // ISO 8601 UTC format
+            Log($"{mode} [CUSTOMER] {action} - {customerName} by {username} at {timestamp}");
         }
 
-        public static void LogAppointmentChange(string action, string appointmentDetails)
+        public static void LogAppointmentChange(string action, string appointmentDetails, string username, bool isOffline)
         {
-            Log($"[APPOINTMENT] {action} - {appointmentDetails}");
+            string mode = isOffline ? "[OFFLINE]" : "[ONLINE]";
+            string timestamp = DBConnection.GetNowTime().ToString("u"); // ISO 8601 UTC format
+            Log($"{mode} [APPOINTMENT] {action} - {appointmentDetails} by {username} at {timestamp}");
         }
     }
 }

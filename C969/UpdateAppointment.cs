@@ -13,12 +13,14 @@ namespace C969
         HelperFunctions _helperFunctions;
         int _appointmentId;
         int _customerId;
+        string _user;
 
         public UpdateAppointment(int appointmentId, int customerId)
         {
             InitializeComponent();
             _helperFunctions = new HelperFunctions();
             _appointmentId = appointmentId;
+            _user = DBConnection.UserName;
             _customerId = customerId;
             _helperFunctions.DataGridLayout(updateAppointmentBeingChanged);
             _helperFunctions.DataGridLayout(updateAppointmentList);
@@ -109,6 +111,7 @@ namespace C969
                         AddUpdateParameters(cmd);
                         ExecuteUpdate(cmd);
                     }
+                    Logger.LogAppointmentChange("Updated", "Appointment updated to offline database.", _user, DBConnection.IsOffline());
                 }
                 else
                 {
@@ -117,6 +120,7 @@ namespace C969
                         AddUpdateParameters(cmd);
                         ExecuteUpdate(cmd);
                     }
+                    Logger.LogAppointmentChange("Updated", "Appointment updated to online database.", _user, DBConnection.IsOffline());
                 }
             }
             catch (Exception ex)

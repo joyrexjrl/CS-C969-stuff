@@ -136,3 +136,14 @@
 [OFFLINE] User test logged in at 5/24/2025 12:58:27 PM
 [OFFLINE] User test logged in at 5/24/2025 12:59:44 PM
 [OFFLINE] User test logged in at 5/24/2025 1:01:05 PM
+[OFFLINE] User test logged in at 6/2/2025 12:58:25 AM
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-02 00:59:37Z
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-02 01:00:07Z
+[OFFLINE] User test logged in at 6/2/2025 1:01:55 AM
+[OFFLINE] User test logged in at 6/2/2025 1:03:17 AM
+[OFFLINE] [CUSTOMER] Updated - boing by test at 2025-06-02 01:03:33Z
+[OFFLINE] User test logged in at 6/2/2025 1:15:53 AM
+[OFFLINE] User test logged in at 6/2/2025 1:16:32 AM
+[OFFLINE] User test logged in at 6/2/2025 1:17:58 AM
+[OFFLINE] [CUSTOMER] Added - test by test at 2025-06-02 01:18:24Z
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-02 01:18:52Z

@@ -12,6 +12,7 @@ namespace C969
     {
         HelperFunctions _helperFunctions;
         readonly int _customerId;
+        string _user;
 
         DateTime _openTime = DateTime.Parse("08:00");
         DateTime _closedTime = DateTime.Parse("17:00");
@@ -22,6 +23,7 @@ namespace C969
         {
             InitializeComponent();
             _customerId = customerId;
+            _user = DBConnection.UserName;
             _helperFunctions = new HelperFunctions();
             _helperFunctions.DataGridLayout(appointmentCustomerDatagrid);
             _helperFunctions.DataGridLayout(appointmentInfoDataGrid);
@@ -152,10 +154,12 @@ namespace C969
                 if (DBConnection.IsOffline())
                 {
                     using (var cmd = new SQLiteCommand(insertQuery, DBConnection.OfflineConn)) cmd.ExecuteNonQuery();
+                    Logger.LogAppointmentChange("Created", "New appointment added to offline database.", _user, DBConnection.IsOffline());
                 }
                 else
                 {
                     using (var cmd = new MySqlCommand(insertQuery, DBConnection.Conn)) cmd.ExecuteNonQuery();
+                    Logger.LogAppointmentChange("Created", "New appointment added to online database.", _user, DBConnection.IsOffline());
                 }
 
                 AppointmentAdded?.Invoke(this, EventArgs.Empty);

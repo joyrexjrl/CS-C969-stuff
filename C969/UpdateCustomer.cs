@@ -12,6 +12,7 @@ namespace C969
     {
         HelperFunctions _helperFunctions;
         DataRow _customerRow;
+        string _user;
 
         public event EventHandler CustomerSaved;
 
@@ -19,6 +20,7 @@ namespace C969
         {
             InitializeComponent();
             _customerRow = customerRow;
+            _user = DBConnection.UserName;
             _helperFunctions = new HelperFunctions();
             _helperFunctions.DataGridLayout(updateCustomerDataGrid);
             updateCustomerDataGrid.ClearSelection();
@@ -123,6 +125,8 @@ namespace C969
                                 command.ExecuteNonQuery();
 
                             MessageBox.Show("Customer updated in offline database.");
+
+                            Logger.LogCustomerChange("Updated", name, _user, DBConnection.IsOffline());
                             CustomerSaved?.Invoke(this, EventArgs.Empty);
                             Close();
                         }
@@ -161,6 +165,8 @@ namespace C969
                         command.ExecuteNonQuery();
 
                     MessageBox.Show("Customer updated in online database.");
+
+                    Logger.LogCustomerChange("Updated", name, _user, DBConnection.IsOffline());
                     CustomerSaved?.Invoke(this, EventArgs.Empty);
                     Close();
                 }
