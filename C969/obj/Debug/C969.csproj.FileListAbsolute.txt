@@ -54,3 +54,4 @@ D:\School WGU stuff\CS C969 stuff\C969\bin\Debug\EntityFramework.SqlServer.xml
 D:\School WGU stuff\CS C969 stuff\C969\bin\Debug\System.Data.SQLite.xml
 D:\School WGU stuff\CS C969 stuff\C969\obj\Debug\C969.AddAppointment.resources
 D:\School WGU stuff\CS C969 stuff\C969\obj\Debug\C969.UpdateAppointment.resources
+D:\School WGU stuff\CS C969 stuff\C969\obj\Debug\C969.ViewLogs.resources

@@ -44,6 +44,9 @@ namespace C969
             appointmentAddButton.Enabled = false;
             appointmentUpdateButton.Enabled = false;
             appointmentDeleteButton.Enabled = false;
+            viewAppointmentDate.Enabled = false;
+            viewDateButton.Enabled = false;
+            showAllButton.Enabled = false;
 
             customerDataGrid.SelectionChanged += CustomerDataGrid_SelectionChanged;
             appointmentDataGrid.SelectionChanged += AppointmentDataGrid_SelectionChanged;
@@ -110,6 +113,12 @@ namespace C969
             appointmentDataGrid.DataSource = null;
         }
 
+        void viewLogsButton_Click(object sender, EventArgs e)
+        {
+            ViewLogs viewLogs = new ViewLogs();
+            viewLogs.Show();
+        }
+
         void RecordsForm_Load(object sender, EventArgs e)
         {
             AppointmentTimeChecker();
@@ -142,6 +151,9 @@ namespace C969
             deleteCustomerButton.Enabled = hasSelection;
             appointmentAddButton.Enabled = hasSelection;
             appointmentUpdateButton.Enabled = false;
+            viewAppointmentDate.Enabled = false;
+            viewDateButton.Enabled = false;
+            showAllButton.Enabled = false;
 
             if (!hasSelection)
             {
@@ -155,6 +167,9 @@ namespace C969
             {
                 _selectedCustomerId = Convert.ToInt32(rowView["customerId"]);
                 ReloadCustomerAppointmentData(_selectedCustomerId);
+                viewAppointmentDate.Enabled = appointmentDataGrid.Rows.Count > 0;
+                viewDateButton.Enabled = appointmentDataGrid.Rows.Count > 0;
+                showAllButton.Enabled = appointmentDataGrid.Rows.Count > 0;
             }
         }
 
@@ -296,6 +311,44 @@ namespace C969
             {
                 MessageBox.Show($"Error deleting {tableType}: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        void viewDateButton_Click(object sender, EventArgs e)
+        {
+            DateTime selectedDate = viewAppointmentDate.Value.Date;
+            string formattedDate = selectedDate.ToString("yyyy-MM-dd");
+            string query = $"SELECT * FROM appointment WHERE customerId = {_selectedCustomerId} AND DATE(start) = '{formattedDate}'";
+
+            try
+            {
+                DataTable dt = new DataTable();
+                if (DBConnection.IsOffline())
+                {
+                    var conn = DBConnection.GetOfflineConnection();
+                    using (var cmd = new SQLiteCommand(query, conn))
+                    using (var adapter = new SQLiteDataAdapter(cmd)) adapter.Fill(dt);
+                }
+                else if (DBConnection.CurrentMode == ConnectionMode.Online)
+                {
+                    using (var cmd = new MySqlCommand(query, DBConnection.Conn))
+                    using (var adapter = new MySqlDataAdapter(cmd)) adapter.Fill(dt);
+                }
+                TimeHelper.ConvertUtcColumnsToLocal(dt, "start", "end");
+                appointmentDataGrid.DataSource = null;
+                appointmentDataGrid.DataSource = dt;
+                appointmentDataGrid.ClearSelection();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to load appointments for selected date: {ex.Message}");
+            }
+        }
+
+        void showAllButton_Click(object sender, EventArgs e)
+        {
+            DataRowView rowView = customerDataGrid.SelectedRows[0].DataBoundItem as DataRowView;
+            if (rowView != null && int.TryParse(rowView["customerId"].ToString(), out int customerId)) ReloadCustomerAppointmentData(customerId);
+            else MessageBox.Show("Unable to determine the selected customer's ID.");
         }
     }
 }

@@ -40,6 +40,11 @@ namespace C969
             this.appointmentAddButton = new System.Windows.Forms.Button();
             this.appointmentUpdateButton = new System.Windows.Forms.Button();
             this.appointmentDeleteButton = new System.Windows.Forms.Button();
+            this.viewLogsButton = new System.Windows.Forms.Button();
+            this.viewDateButton = new System.Windows.Forms.Button();
+            this.viewAppointmentDate = new System.Windows.Forms.DateTimePicker();
+            this.label3 = new System.Windows.Forms.Label();
+            this.showAllButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.customerDataGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.appointmentDataGrid)).BeginInit();
             this.SuspendLayout();
@@ -148,11 +153,62 @@ namespace C969
             this.appointmentDeleteButton.UseVisualStyleBackColor = true;
             this.appointmentDeleteButton.Click += new System.EventHandler(this.appointmentDeleteButton_Click);
             // 
+            // viewLogsButton
+            // 
+            this.viewLogsButton.Location = new System.Drawing.Point(400, 754);
+            this.viewLogsButton.Name = "viewLogsButton";
+            this.viewLogsButton.Size = new System.Drawing.Size(75, 23);
+            this.viewLogsButton.TabIndex = 11;
+            this.viewLogsButton.Text = "View Logs";
+            this.viewLogsButton.UseVisualStyleBackColor = true;
+            this.viewLogsButton.Click += new System.EventHandler(this.viewLogsButton_Click);
+            // 
+            // viewDateButton
+            // 
+            this.viewDateButton.Location = new System.Drawing.Point(1201, 751);
+            this.viewDateButton.Name = "viewDateButton";
+            this.viewDateButton.Size = new System.Drawing.Size(75, 23);
+            this.viewDateButton.TabIndex = 12;
+            this.viewDateButton.Text = "Search";
+            this.viewDateButton.UseVisualStyleBackColor = true;
+            this.viewDateButton.Click += new System.EventHandler(this.viewDateButton_Click);
+            // 
+            // viewAppointmentDate
+            // 
+            this.viewAppointmentDate.Location = new System.Drawing.Point(1201, 723);
+            this.viewAppointmentDate.Name = "viewAppointmentDate";
+            this.viewAppointmentDate.Size = new System.Drawing.Size(200, 20);
+            this.viewAppointmentDate.TabIndex = 13;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(1198, 701);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(134, 13);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "View appointments by date";
+            // 
+            // showAllButton
+            // 
+            this.showAllButton.Location = new System.Drawing.Point(1326, 751);
+            this.showAllButton.Name = "showAllButton";
+            this.showAllButton.Size = new System.Drawing.Size(75, 23);
+            this.showAllButton.TabIndex = 15;
+            this.showAllButton.Text = "Show All";
+            this.showAllButton.UseVisualStyleBackColor = true;
+            this.showAllButton.Click += new System.EventHandler(this.showAllButton_Click);
+            // 
             // RecordsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1555, 789);
+            this.Controls.Add(this.showAllButton);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.viewAppointmentDate);
+            this.Controls.Add(this.viewDateButton);
+            this.Controls.Add(this.viewLogsButton);
             this.Controls.Add(this.appointmentDeleteButton);
             this.Controls.Add(this.appointmentUpdateButton);
             this.Controls.Add(this.appointmentAddButton);
@@ -187,5 +243,10 @@ namespace C969
         private System.Windows.Forms.Button appointmentAddButton;
         private System.Windows.Forms.Button appointmentUpdateButton;
         private System.Windows.Forms.Button appointmentDeleteButton;
+        private System.Windows.Forms.Button viewLogsButton;
+        private System.Windows.Forms.Button viewDateButton;
+        private System.Windows.Forms.DateTimePicker viewAppointmentDate;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button showAllButton;
     }
 }

@@ -239,3 +239,19 @@
 [OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 19:55:52Z
 [OFFLINE] User test logged in at 6/3/2025 8:04:49 PM
 [OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 20:05:28Z
+[OFFLINE] User test logged in at 6/4/2025 12:21:00 PM
+[OFFLINE] User test logged in at 6/4/2025 12:28:55 PM
+[OFFLINE] User test logged in at 6/4/2025 12:29:31 PM
+[OFFLINE] User test logged in at 6/4/2025 12:30:36 PM
+[OFFLINE] User test logged in at 6/4/2025 12:32:32 PM
+[OFFLINE] User test logged in at 6/4/2025 12:33:55 PM
+[OFFLINE] User test logged in at 6/4/2025 12:35:47 PM
+[OFFLINE] User test logged in at 6/4/2025 12:42:25 PM
+[OFFLINE] User test logged in at 6/4/2025 1:03:23 PM
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-04 13:03:44Z
+[OFFLINE] User test logged in at 6/4/2025 1:14:40 PM
+[OFFLINE] User test logged in at 6/4/2025 1:17:34 PM
+[OFFLINE] [CUSTOMER] Added - moo by test at 2025-06-04 13:17:54Z
+[OFFLINE] User test logged in at 6/4/2025 1:19:28 PM
+[OFFLINE] User test logged in at 6/4/2025 1:20:13 PM
+[OFFLINE] User test logged in at 6/4/2025 1:32:20 PM
