@@ -50,7 +50,6 @@ namespace C969
             try
             {
                 DataTable dataTable = new DataTable();
-
                 switch (DBConnection.CurrentMode)
                 {
                     case ConnectionMode.Offline:
@@ -68,7 +67,38 @@ namespace C969
                         }
                         break;
                 }
-                dataGrid.DataSource = dataTable;
+                if ((dataGrid.Name == "appointmentInfoDataGrid" ||
+                     dataGrid.Name == "updateAppointmentList" ||
+                     dataGrid.Name == "updateAppointmentBeingChanged") &&
+                    dataTable.Columns.Contains("start") && dataTable.Columns.Contains("end"))
+                {
+                    DataTable formattedTable = dataTable.Clone();
+                    formattedTable.Columns["start"].DataType = typeof(string);
+                    formattedTable.Columns["end"].DataType = typeof(string);
+
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        DataRow newRow = formattedTable.NewRow();
+                        foreach (DataColumn col in dataTable.Columns)
+                        {
+                            if (col.ColumnName == "start" && row["start"] != DBNull.Value && DateTime.TryParse(row["start"].ToString(), out DateTime startUtc))
+                            {
+                                DateTime localStart = TimeHelper.ToLocal(startUtc);
+                                newRow["start"] = localStart.ToString("yyyy-MM-dd HH:mm");
+                            }
+                            else if (col.ColumnName == "end" && row["end"] != DBNull.Value && DateTime.TryParse(row["end"].ToString(), out DateTime endUtc))
+                            {
+                                DateTime localEnd = TimeHelper.ToLocal(endUtc);
+                                newRow["end"] = localEnd.ToString("yyyy-MM-dd HH:mm");
+                            }
+                            else newRow[col.ColumnName] = row[col.ColumnName];
+                        }
+                        formattedTable.Rows.Add(newRow);
+                    }
+                    dataGrid.DataSource = formattedTable;
+                }
+                else dataGrid.DataSource = dataTable;
+
                 dataGrid.BeginInvoke(new Action(() =>
                 {
                     dataGrid.ClearSelection();

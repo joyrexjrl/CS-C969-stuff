@@ -49,13 +49,15 @@ namespace C969
             appointmentDataGrid.SelectionChanged += AppointmentDataGrid_SelectionChanged;
 
             Load += RecordsForm_Load;
-            FormClosed += EndConnectionOnClose;
+            FormClosed += EndConnectionOnClose;                        
         }
 
         public void ReloadCustomerAppointmentData(int customerId)
         {
             string appointmentQuery = $"{_customerAppointmentQuery} = {customerId}";
             DataTable appointmentTable = _helperFunctions.LoadQueryToTable(appointmentQuery);
+            TimeHelper.ConvertUtcColumnsToLocal(appointmentTable, "start", "end");
+            appointmentDataGrid.DataSource = null;
             appointmentDataGrid.DataSource = appointmentTable;
             appointmentDataGrid.ClearSelection();
         }
@@ -64,7 +66,7 @@ namespace C969
         {
             try
             {
-                var now = DBConnection.GetNowTime();
+                var now = TimeHelper.GetNowTime();
                 var fifteenMinutesLater = now.AddMinutes(15);
 
                 string query = @"
@@ -184,9 +186,9 @@ namespace C969
             int appointmentId = Convert.ToInt32(appointmentDataGrid.SelectedRows[0].Cells["appointmentId"].Value);
             int customerId = Convert.ToInt32(customerDataGrid.SelectedRows[0].Cells["customerId"].Value);
 
-            UpdateAppointment _updateAppointment = new UpdateAppointment(appointmentId, customerId);
-            _updateAppointment.AppointmentUpdated += (s, args) => { ReloadCustomerAppointmentData(customerId); };
-            _updateAppointment.Show();
+            var updateAppointment = new UpdateAppointment(appointmentId, customerId);
+            updateAppointment.AppointmentUpdated += (s, args) => { ReloadCustomerAppointmentData(customerId); };
+            updateAppointment.Show();
         }
 
         void appointmentDeleteButton_Click(object sender, EventArgs e) => DeleteDataGridInfo(appointmentDataGrid);

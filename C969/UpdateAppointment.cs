@@ -67,6 +67,10 @@ namespace C969
 
         void updateButton_Click(object sender, EventArgs e)
         {
+            int userId = DBConnection.UserId;
+            string createdBy = "system";
+            DateTime utcNow = TimeHelper.ToUtc(TimeHelper.GetNowTime());
+
             string title = updateTitle.Text.Trim();
             string location = updateLocation.Text.Trim();
             string type = updateType.Text.Trim();
@@ -74,100 +78,65 @@ namespace C969
             string url = updateUrl.Text.Trim();
             string description = updateDescription.Text.Trim();
 
-            if (!TimeSpan.TryParse(updateStart.Text.Trim(), out TimeSpan startTimeOnly) ||
-                !TimeSpan.TryParse(updateEnd.Text.Trim(), out TimeSpan endTimeOnly))
+            if (!TimeHelper.TryParseNormalizedTime(updateStart.Text, out DateTime startTime) ||
+                !TimeHelper.TryParseNormalizedTime(updateEnd.Text, out DateTime endTime))
             {
-                MessageBox.Show("Invalid start or end time format.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid time format for start or end.", "Time Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            DateTime startTime = updateDatePicker.Value.Date + startTimeOnly;
-            DateTime endTime = updateDatePicker.Value.Date + endTimeOnly;
+            DateTime selectedDate = updateDatePicker.Value.Date;
+            DateTime localStart = selectedDate.AddHours(startTime.Hour).AddMinutes(startTime.Minute);
+            DateTime localEnd = selectedDate.AddHours(endTime.Hour).AddMinutes(endTime.Minute);
 
-            if (startTime >= endTime)
+            if (localStart.TimeOfDay < TimeHelper.openTime.TimeOfDay || localStart.TimeOfDay > TimeHelper.closedTime.TimeOfDay ||
+                localEnd.TimeOfDay < TimeHelper.openTime.TimeOfDay || localEnd.TimeOfDay > TimeHelper.closedTime.TimeOfDay)
             {
-                MessageBox.Show("End time must be after start time.", "Invalid Time", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Please enter times within operating hours: {TimeHelper.openTime:HH:mm} - {TimeHelper.closedTime:HH:mm}.", "Time Out of Range", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                updateStart.Clear();
+                updateEnd.Clear();
                 return;
             }
 
-            if (HasTimeOverlap(startTime, endTime))
+            DateTime utcStart = TimeHelper.ToUtc(localStart);
+            DateTime utcEnd = TimeHelper.ToUtc(localEnd);
+
+            if (TimeHelper.HasTimeOverlap(utcStart, utcEnd, updateAppointmentList))
             {
                 MessageBox.Show("Appointment overlaps with an existing one.", "Time Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                updateStart.Clear();
+                updateEnd.Clear();
                 return;
             }
 
-            string updateQuery = @"UPDATE appointment 
-                           SET title = @title, location = @location, type = @type, contact = @contact, url = @url, 
-                               description = @description, start = @start, end = @end, lastUpdate = CURRENT_TIMESTAMP, 
-                               lastUpdateBy = @user 
-                           WHERE appointmentId = @appointmentId";
+            string updateQuery = $@"
+                UPDATE appointment
+                SET title = '{Escape(title)}', location = '{Escape(location)}', type = '{Escape(type)}', contact = '{Escape(contact)}', url = '{Escape(url)}',
+                    description = '{Escape(description)}', start = '{utcStart:yyyy-MM-dd HH:mm:ss}', end = '{utcEnd:yyyy-MM-dd HH:mm:ss}',
+                    lastUpdate = '{utcNow:yyyy-MM-dd HH:mm:ss}', lastUpdateBy = '{Escape(createdBy)}'
+                WHERE appointmentId = {_appointmentId};";
 
             try
             {
                 if (DBConnection.IsOffline())
                 {
-                    using (var cmd = new SQLiteCommand(updateQuery, DBConnection.OfflineConn))
-                    {
-                        AddUpdateParameters(cmd);
-                        ExecuteUpdate(cmd);
-                    }
+                    using (var cmd = new SQLiteCommand(updateQuery, DBConnection.OfflineConn)) cmd.ExecuteNonQuery();
                     Logger.LogAppointmentChange("Updated", "Appointment updated to offline database.", _user, DBConnection.IsOffline());
                 }
                 else
                 {
-                    using (var cmd = new MySqlCommand(updateQuery, DBConnection.Conn))
-                    {
-                        AddUpdateParameters(cmd);
-                        ExecuteUpdate(cmd);
-                    }
+                    using (var cmd = new MySqlCommand(updateQuery, DBConnection.Conn)) cmd.ExecuteNonQuery();
                     Logger.LogAppointmentChange("Updated", "Appointment updated to online database.", _user, DBConnection.IsOffline());
                 }
+                AppointmentUpdated?.Invoke(this, EventArgs.Empty);
+                MessageBox.Show("Appointment updated successfully.");
+                Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Update failed: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            void AddUpdateParameters(dynamic cmd)
-            {
-                cmd.Parameters.AddWithValue("@title", title);
-                cmd.Parameters.AddWithValue("@location", location);
-                cmd.Parameters.AddWithValue("@type", type);
-                cmd.Parameters.AddWithValue("@contact", contact);
-                cmd.Parameters.AddWithValue("@url", url);
-                cmd.Parameters.AddWithValue("@description", description);
-                cmd.Parameters.AddWithValue("@start", startTime);
-                cmd.Parameters.AddWithValue("@end", endTime);
-                cmd.Parameters.AddWithValue("@user", Environment.UserName);
-                cmd.Parameters.AddWithValue("@appointmentId", _appointmentId);
-            }
-
-            void ExecuteUpdate(dynamic cmd)
-            {
-                int rows = cmd.ExecuteNonQuery();
-                if (rows > 0)
-                {
-                    MessageBox.Show("Appointment updated successfully.");
-                    AppointmentUpdated?.Invoke(this, EventArgs.Empty);
-                    Close();
-                }
-                else MessageBox.Show("No changes were made to the appointment.", "No Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        bool HasTimeOverlap(DateTime newStart, DateTime newEnd)
-        {
-            foreach (DataGridViewRow row in updateAppointmentList.Rows)
-            {
-                if (row.DataBoundItem is DataRowView dataRow)
-                {
-                    DateTime existingStart = Convert.ToDateTime(dataRow["start"]);
-                    DateTime existingEnd = Convert.ToDateTime(dataRow["end"]);
-
-                    if (newStart < existingEnd && newEnd > existingStart) return true;
-                }
-            }
-            return false;
+            string Escape(string input) => input.Replace("'", "''");
         }
     }
 }

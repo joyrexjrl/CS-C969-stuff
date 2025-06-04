@@ -14,9 +14,6 @@ namespace C969
         readonly int _customerId;
         string _user;
 
-        DateTime _openTime = DateTime.Parse("08:00");
-        DateTime _closedTime = DateTime.Parse("17:00");
-
         public event EventHandler AppointmentAdded;
 
         public AddAppointment(int customerId, DataTable selectedCustomer, DataTable customerAppointments)
@@ -83,20 +80,11 @@ namespace C969
             }
         }
 
-        bool TryParseNormalizedTime(string input, out DateTime result)
-        {
-            result = default;
-            input = input.Trim();
-
-            if (input.Length == 4 && input.All(char.IsDigit)) input = input.Insert(2, ":");
-            return DateTime.TryParseExact(input, "HH:mm", null, System.Globalization.DateTimeStyles.None, out result);
-        }
-
         void appointmentAddButton_Click(object sender, EventArgs e)
         {
             int userId = DBConnection.UserId;
             string createdBy = "system";
-            DateTime now = DateTime.UtcNow;
+            DateTime utcNow = TimeHelper.ToUtc(TimeHelper.GetNowTime());
 
             string title = appointmentTitleTextBox.Text.Trim();
             string location = appointmentLocationTextBox.Text.Trim();
@@ -105,27 +93,30 @@ namespace C969
             string url = appointmentURLTextBox.Text.Trim();
             string description = appointmentDescriptionTextBox.Text.Trim();
 
-            if (!TryParseNormalizedTime(appointmentStartTextBox.Text, out DateTime startTime) ||
-                !TryParseNormalizedTime(appointmentEndTextBox.Text, out DateTime endTime))
+            if (!TimeHelper.TryParseNormalizedTime(appointmentStartTextBox.Text, out DateTime startTime) ||
+                !TimeHelper.TryParseNormalizedTime(appointmentEndTextBox.Text, out DateTime endTime))
             {
                 MessageBox.Show("Invalid time format for start or end.", "Time Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             DateTime selectedDate = appointmentDatePicker.Value.Date;
-            DateTime start = selectedDate.AddHours(startTime.Hour).AddMinutes(startTime.Minute);
-            DateTime end = selectedDate.AddHours(endTime.Hour).AddMinutes(endTime.Minute);
+            DateTime localStart = selectedDate.AddHours(startTime.Hour).AddMinutes(startTime.Minute);
+            DateTime localEnd = selectedDate.AddHours(endTime.Hour).AddMinutes(endTime.Minute);            
 
-            if (start.TimeOfDay < _openTime.TimeOfDay || start.TimeOfDay > _closedTime.TimeOfDay ||
-                end.TimeOfDay < _openTime.TimeOfDay || end.TimeOfDay > _closedTime.TimeOfDay)
+            if (localStart.TimeOfDay < TimeHelper.openTime.TimeOfDay || localStart.TimeOfDay > TimeHelper.closedTime.TimeOfDay ||
+                localEnd.TimeOfDay < TimeHelper.openTime.TimeOfDay || localEnd.TimeOfDay > TimeHelper.closedTime.TimeOfDay)
             {
-                MessageBox.Show($"Please enter times within operating hours: {_openTime:HH:mm} - {_closedTime:HH:mm}.", "Time Out of Range", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Please enter times within operating hours: {TimeHelper.openTime:HH:mm} - {TimeHelper.closedTime:HH:mm}.", "Time Out of Range", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 appointmentStartTextBox.Clear();
                 appointmentEndTextBox.Clear();
                 return;
             }
 
-            if (HasTimeOverlap(start, end))
+            DateTime utcStart = TimeHelper.ToUtc(localStart);
+            DateTime utcEnd = TimeHelper.ToUtc(localEnd);
+
+            if (TimeHelper.HasTimeOverlap(utcStart, utcEnd, appointmentInfoDataGrid))
             {
                 MessageBox.Show("This appointment overlaps with an existing one. Please choose a different time.", "Time Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 appointmentStartTextBox.Clear();
@@ -146,8 +137,8 @@ namespace C969
                 (customerId, userId, title, description, location, contact, type, url, start, end, createDate, createdBy, lastUpdate, lastUpdateBy)
                 VALUES (
                 {_customerId}, {userId}, '{Escape(title)}', '{Escape(description)}', '{Escape(location)}', '{Escape(contact)}', 
-                '{Escape(type)}', '{Escape(url)}', '{start:yyyy-MM-dd HH:mm:ss}', '{end:yyyy-MM-dd HH:mm:ss}', '{now:yyyy-MM-dd HH:mm:ss}', 
-                '{Escape(createdBy)}', '{now:yyyy-MM-dd HH:mm:ss}', '{Escape(createdBy)}')";
+                '{Escape(type)}', '{Escape(url)}', '{utcStart:yyyy-MM-dd HH:mm:ss}', '{utcEnd:yyyy-MM-dd HH:mm:ss}', '{utcNow:yyyy-MM-dd HH:mm:ss}', 
+                '{Escape(createdBy)}', '{utcNow:yyyy-MM-dd HH:mm:ss}', '{Escape(createdBy)}')";
 
             try
             {
@@ -161,7 +152,6 @@ namespace C969
                     using (var cmd = new MySqlCommand(insertQuery, DBConnection.Conn)) cmd.ExecuteNonQuery();
                     Logger.LogAppointmentChange("Created", "New appointment added to online database.", _user, DBConnection.IsOffline());
                 }
-
                 AppointmentAdded?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show("Appointment added successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Close();
@@ -170,26 +160,7 @@ namespace C969
             {
                 MessageBox.Show($"Error adding appointment: {ex.Message}", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
             string Escape(string input) => input.Replace("'", "''");
-        }
-
-        bool HasTimeOverlap(DateTime newStart, DateTime newEnd)
-        {
-            foreach (DataGridViewRow row in appointmentInfoDataGrid.Rows)
-            {
-                if (row.DataBoundItem is DataRowView dataRow)
-                {
-                    DateTime existingStart = Convert.ToDateTime(dataRow["start"]);
-                    DateTime existingEnd = Convert.ToDateTime(dataRow["end"]);
-
-                    if (existingStart.Date == newStart.Date)
-                    {
-                        if (newStart < existingEnd && newEnd > existingStart) return true;
-                    }
-                }
-            }
-            return false;
         }
     }
 }

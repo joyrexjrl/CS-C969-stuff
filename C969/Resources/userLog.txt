@@ -147,3 +147,95 @@
 [OFFLINE] User test logged in at 6/2/2025 1:17:58 AM
 [OFFLINE] [CUSTOMER] Added - test by test at 2025-06-02 01:18:24Z
 [OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-02 01:18:52Z
+[OFFLINE] User test logged in at 6/2/2025 1:33:27 AM
+[OFFLINE] [CUSTOMER] Deleted - Appointment by test at 2025-06-02 01:33:34Z
+[OFFLINE] [CUSTOMER] Deleted - Customer by test at 2025-06-02 01:33:39Z
+[OFFLINE] User test logged in at 6/2/2025 4:49:15 PM
+[OFFLINE] [CUSTOMER] Added - boing by test at 2025-06-02 16:49:36Z
+[OFFLINE] User test logged in at 6/2/2025 4:55:33 PM
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-02 16:56:25Z
+[OFFLINE] User test logged in at 6/2/2025 5:07:40 PM
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-02 17:08:18Z
+[OFFLINE] User test logged in at 6/2/2025 5:35:41 PM
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-02 17:36:29Z
+[OFFLINE] User test logged in at 6/2/2025 5:46:29 PM
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-02 17:47:11Z
+[OFFLINE] User test logged in at 6/2/2025 5:54:41 PM
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-02 17:55:37Z
+[OFFLINE] User test logged in at 6/2/2025 5:58:04 PM
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-02 18:00:29Z
+[OFFLINE] User test logged in at 6/2/2025 6:04:51 PM
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-02 18:05:24Z
+[OFFLINE] User test logged in at 6/2/2025 6:20:54 PM
+[OFFLINE] [CUSTOMER] Deleted - Appointment by test at 2025-06-02 18:21:02Z
+[OFFLINE] [CUSTOMER] Deleted - Appointment by test at 2025-06-02 18:21:06Z
+[OFFLINE] [CUSTOMER] Deleted - Appointment by test at 2025-06-02 18:21:09Z
+[OFFLINE] [CUSTOMER] Deleted - Appointment by test at 2025-06-02 18:21:16Z
+[OFFLINE] [CUSTOMER] Deleted - Appointment by test at 2025-06-02 18:21:21Z
+[OFFLINE] [CUSTOMER] Deleted - Appointment by test at 2025-06-02 18:21:24Z
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-02 18:21:47Z
+[OFFLINE] User test logged in at 6/2/2025 6:35:18 PM
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-02 18:35:34Z
+[OFFLINE] User test logged in at 6/2/2025 6:36:22 PM
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-02 18:36:38Z
+[OFFLINE] User test logged in at 6/3/2025 2:30:16 PM
+[OFFLINE] User test logged in at 6/3/2025 2:33:01 PM
+[OFFLINE] User test logged in at 6/3/2025 2:41:07 PM
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-03 14:41:54Z
+[OFFLINE] User test logged in at 6/3/2025 2:42:19 PM
+[OFFLINE] User test logged in at 6/3/2025 2:50:31 PM
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-03 14:50:57Z
+[OFFLINE] [CUSTOMER] Deleted - Appointment by test at 2025-06-03 14:51:15Z
+[OFFLINE] [CUSTOMER] Deleted - Appointment by test at 2025-06-03 14:51:17Z
+[OFFLINE] [CUSTOMER] Deleted - Appointment by test at 2025-06-03 14:51:19Z
+[OFFLINE] [CUSTOMER] Deleted - Appointment by test at 2025-06-03 14:51:21Z
+[OFFLINE] [CUSTOMER] Deleted - Appointment by test at 2025-06-03 14:51:22Z
+[OFFLINE] User test logged in at 6/3/2025 3:01:48 PM
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-03 15:02:03Z
+[OFFLINE] User test logged in at 6/3/2025 3:28:16 PM
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-03 15:28:40Z
+[OFFLINE] User test logged in at 6/3/2025 4:14:04 PM
+[OFFLINE] [CUSTOMER] Deleted - Appointment by test at 2025-06-03 16:14:19Z
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-03 16:14:36Z
+[OFFLINE] User test logged in at 6/3/2025 4:37:33 PM
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-03 16:38:05Z
+[OFFLINE] User test logged in at 6/3/2025 4:47:38 PM
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 16:47:55Z
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 16:48:30Z
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 16:49:39Z
+[OFFLINE] User test logged in at 6/3/2025 4:59:08 PM
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 17:00:10Z
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 17:00:59Z
+[OFFLINE] User test logged in at 6/3/2025 5:11:32 PM
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 17:12:00Z
+[OFFLINE] User test logged in at 6/3/2025 5:28:21 PM
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-03 17:28:53Z
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 17:29:16Z
+[OFFLINE] User test logged in at 6/3/2025 5:42:49 PM
+[OFFLINE] [APPOINTMENT] Created - New appointment added to offline database. by test at 2025-06-03 17:43:29Z
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 17:43:49Z
+[OFFLINE] [CUSTOMER] Deleted - Appointment by test at 2025-06-03 17:44:06Z
+[OFFLINE] [CUSTOMER] Deleted - Appointment by test at 2025-06-03 17:44:08Z
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 17:44:33Z
+[OFFLINE] User test logged in at 6/3/2025 5:44:59 PM
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 17:45:35Z
+[OFFLINE] User test logged in at 6/3/2025 6:06:34 PM
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 18:06:53Z
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 18:07:06Z
+[OFFLINE] User test logged in at 6/3/2025 6:11:43 PM
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 18:11:58Z
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 18:12:13Z
+[OFFLINE] User test logged in at 6/3/2025 6:30:31 PM
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 18:30:49Z
+[OFFLINE] User test logged in at 6/3/2025 6:44:00 PM
+[OFFLINE] User test logged in at 6/3/2025 6:46:59 PM
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 18:47:24Z
+[OFFLINE] User test logged in at 6/3/2025 7:45:51 PM
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 19:46:11Z
+[OFFLINE] User test logged in at 6/3/2025 7:47:48 PM
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 19:49:27Z
+[OFFLINE] User test logged in at 6/3/2025 7:54:54 PM
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 19:55:13Z
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 19:55:52Z
+[OFFLINE] User test logged in at 6/3/2025 8:04:49 PM
+[OFFLINE] [APPOINTMENT] Updated - Appointment updated to offline database. by test at 2025-06-03 20:05:28Z

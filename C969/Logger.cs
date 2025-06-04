@@ -49,21 +49,21 @@ namespace C969
         {
             string status = success ? "logged in" : "failed login attempt";
             string mode = isOffline ? "[OFFLINE]" : "[ONLINE]";
-            DateTime time = DBConnection.GetNowTime();
+            DateTime time = TimeHelper.GetNowTime();
             Log($"{mode} User {username} {status} at {time}");
         }
 
         public static void LogCustomerChange(string action, string customerName, string username, bool isOffline)
         {
             string mode = isOffline ? "[OFFLINE]" : "[ONLINE]";
-            string timestamp = DBConnection.GetNowTime().ToString("u"); // ISO 8601 UTC format
+            string timestamp = TimeHelper.GetNowTime().ToString("u"); // ISO 8601 UTC format
             Log($"{mode} [CUSTOMER] {action} - {customerName} by {username} at {timestamp}");
         }
 
         public static void LogAppointmentChange(string action, string appointmentDetails, string username, bool isOffline)
         {
             string mode = isOffline ? "[OFFLINE]" : "[ONLINE]";
-            string timestamp = DBConnection.GetNowTime().ToString("u"); // ISO 8601 UTC format
+            string timestamp = TimeHelper.GetNowTime().ToString("u"); // ISO 8601 UTC format
             Log($"{mode} [APPOINTMENT] {action} - {appointmentDetails} by {username} at {timestamp}");
         }
     }
